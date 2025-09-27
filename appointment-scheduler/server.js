@@ -32,6 +32,30 @@ const db = mysql.createConnection({
 }).promise();
 
 
+const createUsersTable = async () => {
+  try {
+    const createTableQuery = `
+      CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        firstName VARCHAR(255) NOT NULL,
+        lastName VARCHAR(255) NOT NULL,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        role VARCHAR(50),
+        location VARCHAR(255),
+        avatar TEXT,
+        resetPasswordToken VARCHAR(255),
+        resetPasswordExpires DATETIME
+      );
+    `;
+    await db.query(createTableQuery);
+    console.log('Users table checked/created successfully.');
+  } catch (error) {
+    console.error('Error creating users table:', error);
+  }
+};
+
 const createDemoUser = async () => {
   try {
     const [rows] = await db.query('SELECT * FROM users WHERE email = ? OR username = ?', ['admin@demo.com', 'admin_user']);
@@ -177,8 +201,10 @@ app.put('/api/user/profile', authenticateToken, async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, "0.0.0.0", async () => {
   console.log(`Server started on http://0.0.0.0:${PORT}`);
   
+  await createUsersTable();
+   await createDemoUser();
   createDemoUser();
 });
