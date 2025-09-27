@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 const illustrationPath = '/login-illustration.png';
 
 const Login = () => {
-  const [email, setEmail] = useState('mharshithkumar951@gmail.com');
+  const [email, setEmail] = useState('admin@demo.com');
   const [password, setPassword] = useState('demopassword');
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
