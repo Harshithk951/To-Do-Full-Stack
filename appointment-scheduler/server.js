@@ -11,16 +11,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const JWT_SECRET = 'a-super-secret-key-that-should-be-long-and-random';
+const JWT_SECRET = process.env.JWT_SECRET; 
+
 const GOOGLE_CLIENT_ID = '104431383148-4ubgun7hqoicil5bppqrvdam7r0hhv37.apps.googleusercontent.com';
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
+
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Mac2025!',
-  database: 'appointment_db'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  
+  ssl: {
+    rejectUnauthorized: true 
+  }
 }).promise();
+
 
 const createDemoUser = async () => {
   try {
@@ -40,12 +48,7 @@ const createDemoUser = async () => {
   }
 };
 
-db.connect().then(() => {
-    console.log('MySQL Connected...');
-    createDemoUser();
-}).catch(err => {
-    console.error('Error connecting to MySQL: ', err);
-});
+
 
 let transporter = nodemailer.createTransport({
   host: "smtp.ethereal.email",
@@ -109,7 +112,6 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
 app.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
     if (!email) {
@@ -128,7 +130,7 @@ app.post('/forgot-password', async (req, res) => {
 
         await db.query('UPDATE users SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE id = ?', [token, expires, user.id]);
 
-        const resetURL = `http://localhost:3000/reset-password/${token}`;
+        const resetURL = `${process.env.FRONTEND_URL}/reset-password/${token}`;
 
         const info = await transporter.sendMail({
             from: '"Todo Dashboard App" <no-reply@tododashboard.com>',
@@ -145,7 +147,6 @@ app.post('/forgot-password', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 app.get('/api/user/profile', authenticateToken, async (req, res) => {
   try {
@@ -176,4 +177,6 @@ app.put('/api/user/profile', authenticateToken, async (req, res) => {
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server started on http://0.0.0.0:${PORT}`);
+  
+  createDemoUser();
 });
