@@ -1,0 +1,112 @@
+.edit-modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.edit-modal-title {
+  font-weight: 600 !important;
+  position: relative;
+  padding-bottom: 8px;
+}
+.edit-modal-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #ff6f61;
+}
+
+.go-back-btn {
+  color: #555 !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  text-decoration: underline;
+}
+
+.edit-modal-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+}
+
+.form-label {
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  color: #333;
+}
+
+.form-left .MuiOutlinedInput-root, .form-left .MuiInputBase-root {
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.priority-group {
+  margin-bottom: 16px;
+}
+
+.upload-area {
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #aaa;
+  background-color: #fafafa;
+  position: relative; /* For image preview */
+}
+
+.upload-placeholder {
+  text-align: center;
+}
+
+.browse-btn {
+  margin-top: 8px !important;
+  text-transform: none !important;
+  border-radius: 8px !important;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  position: absolute;
+}
+
+.edit-modal-footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.done-btn {
+  background-color: #ff6f61 !important;
+  color: white !important;
+  padding: 12px 48px !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
