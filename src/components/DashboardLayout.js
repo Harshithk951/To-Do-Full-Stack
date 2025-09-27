@@ -100,7 +100,7 @@ const Sidebar = memo(({ user, onProfileClick, onLogout }) => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={onLogout} sx={{ borderRadius: '8px' }}>
+                    <ListItemButton onClick={handleLogout} sx={{ borderRadius: '8px' }}>
                         <ListItemIcon sx={{ color: 'inherit' }}><LogoutIcon /></ListItemIcon>
                         <ListItemText primary="Logout" />
                     </ListItemButton>
@@ -132,10 +132,13 @@ function DashboardLayout() {
                 return;
             }
             try {
-                const response = await fetch('http://localhost:3001/api/user/profile', {
+                // FIX 1: Use the environment variable for profile fetch
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/profile`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
+                
                 if (!response.ok) throw new Error('Could not fetch user profile.');
+                
                 const data = await response.json();
                 setCurrentUser(data);
             } catch (error) {
@@ -149,7 +152,8 @@ function DashboardLayout() {
 
     const handleUpdateUser = useCallback(async (updatedData) => {
         try {
-            const response = await fetch('http://localhost:3001/api/user/profile', {
+            // FIX 2: Use the environment variable for profile update
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

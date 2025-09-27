@@ -1,7 +1,5 @@
 const express = require('express');
 const mysql = require('mysql2');
-const fs = require('fs');
-const path = require('path');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -11,55 +9,30 @@ const { OAuth2Client } = require('google-auth-library');
 
 const app = express();
 
+// FIX: CORS configuration to allow access from your Vercel frontend
 const corsOptions = {
-  origin: 'https://to-do-full-stack-tudm.vercel.app' 
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000'
 };
 app.use(cors(corsOptions));
-
 app.use(express.json());
 
+// Use secure environment variables
 const JWT_SECRET = process.env.JWT_SECRET; 
-
-const GOOGLE_CLIENT_ID = '104431383148-4ubgun7hqoicil5bppqrvdam7r0hhv37.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '104431383148-4ubgun7hqoicil5bppqrvdam7r0hhv37.apps.googleusercontent.com';
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-
+// Use environment variables and SSL configuration for Aiven database
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
-  
   ssl: {
-    rejectUnauthorized: false
+    rejectUnauthorized: true 
   }
 }).promise();
 
-
-const createUsersTable = async () => {
-  try {
-    const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        firstName VARCHAR(255) NOT NULL,
-        lastName VARCHAR(255) NOT NULL,
-        username VARCHAR(255) UNIQUE NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        role VARCHAR(50),
-        location VARCHAR(255),
-        avatar TEXT,
-        resetPasswordToken VARCHAR(255),
-        resetPasswordExpires DATETIME
-      );
-    `;
-    await db.query(createTableQuery);
-    console.log('Users table checked/created successfully.');
-  } catch (error) {
-    console.error('Error creating users table:', error);
-  }
-};
 
 const createDemoUser = async () => {
   try {
@@ -79,15 +52,13 @@ const createDemoUser = async () => {
   }
 };
 
-
-
 let transporter = nodemailer.createTransport({
   host: "smtp.ethereal.email",
   port: 587,
   secure: false,
   auth: {
-    user: 'lennie.bins@ethereal.email',
-    pass: '4G5yJz1rCgReBFdGuP',
+    user: process.env.EMAIL_USER || 'lennie.bins@ethereal.email',
+    pass: process.env.EMAIL_PASS || '4G5yJz1rCgReBFdGuP',
   },
 });
 
@@ -143,6 +114,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
 app.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
     if (!email) {
@@ -179,6 +151,7 @@ app.post('/forgot-password', async (req, res) => {
     }
 });
 
+
 app.get('/api/user/profile', authenticateToken, async (req, res) => {
   try {
     const [rows] = await db.query('SELECT id, CONCAT(firstName, " ", lastName) AS name, email, role, location, avatar FROM users WHERE id = ?', [req.user.id]);
@@ -206,10 +179,7 @@ app.put('/api/user/profile', authenticateToken, async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, "0.0.0.0", async () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server started on http://0.0.0.0:${PORT}`);
-  
-  await createUsersTable();
-   await createDemoUser();
   createDemoUser();
 });
