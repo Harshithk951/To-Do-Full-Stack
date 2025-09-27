@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 const illustrationPath = '/login-illustration.png';
 
 const Login = () => {
-  // This code is correct. It uses the demo user credentials.
+  
   const [email, setEmail] = useState('admin@demo.com');
   const [password, setPassword] = useState('demopassword');
   const [rememberMe, setRememberMe] = useState(true);
