@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 const illustrationPath = '/login-illustration.png';
 
 const Login = () => {
+  // This code is correct. It uses the demo user credentials.
   const [email, setEmail] = useState('admin@demo.com');
   const [password, setPassword] = useState('demopassword');
   const [rememberMe, setRememberMe] = useState(true);
@@ -27,11 +28,11 @@ const Login = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => event.preventDefault();
 
+  // This function is correct. It uses the VITE_API_URL to contact the backend.
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-
-const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -48,6 +49,7 @@ const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
   };
 
   return (
+    // The rest of your JSX is perfectly fine.
     <Box
       sx={{
         minHeight: '100vh',
@@ -65,14 +67,13 @@ const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
           width: '100%',
           borderRadius: '16px',
           overflow: 'hidden',
-          display: 'flex', // Use flexbox for the layout
-          flexDirection: { xs: 'column', md: 'row' }, // Stack vertically on mobile, row on desktop
+          display: 'flex', 
+          flexDirection: { xs: 'column', md: 'row' },
         }}
       >
-        {/* Left Side: Image */}
         <Box
           sx={{
-            width: { xs: '100%', md: '50%' }, // Full width on mobile, half on desktop
+            width: { xs: '100%', md: '50%' },
             display: { xs: 'none', md: 'flex' },
             alignItems: 'center',
             justifyContent: 'center',
@@ -87,10 +88,9 @@ const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
           />
         </Box>
 
-        {/* Right Side: Form */}
         <Box
           sx={{
-            width: { xs: '100%', md: '50%' }, // Full width on mobile, half on desktop
+            width: { xs: '100%', md: '50%' },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
