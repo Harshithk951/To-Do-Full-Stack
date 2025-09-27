@@ -18,7 +18,6 @@ import { toast } from 'react-toastify';
 const illustrationPath = '/login-illustration.png';
 
 const Login = () => {
-  
   const [email, setEmail] = useState('admin@demo.com');
   const [password, setPassword] = useState('demopassword');
   const [rememberMe, setRememberMe] = useState(true);
@@ -31,7 +30,8 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(\${process.env.REACT_APP_API_URL}/login`, {`
+      // THIS IS THE LINE I HAVE FIXED
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -48,7 +48,6 @@ const Login = () => {
   };
 
   return (
-    // The rest of your JSX is perfectly fine.
     <Box
       sx={{
         minHeight: '100vh',
@@ -66,7 +65,7 @@ const Login = () => {
           width: '100%',
           borderRadius: '16px',
           overflow: 'hidden',
-          display: 'flex', 
+          display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
         }}
       >
