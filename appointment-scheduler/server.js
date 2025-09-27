@@ -10,12 +10,12 @@ const crypto = require('crypto');
 const { OAuth2Client } = require('google-auth-library');
 
 const app = express();
-const corsOptions = {
-  origin: 'https://to-do-full-stack-chi.vercel.app', 
-  optionsSuccessStatus: 200
-};
 
+const corsOptions = {
+  origin: 'https://to-do-full-stack-tudm.vercel.app' 
+};
 app.use(cors(corsOptions));
+
 app.use(express.json());
 
 const JWT_SECRET = process.env.JWT_SECRET; 
