@@ -12,7 +12,7 @@ const crypto = require('crypto');
 const app = express();
 
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: process.env.FRONTEND_URL,
     credentials: true,
 };
 app.use(cors(corsOptions));
@@ -70,14 +70,13 @@ app.post('/register', async (req, res) => {
     }
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const [rows] = await db.query('SELECT * FROM users WHERE email = ? OR username = ?', [email, username]);
-        if (rows.length > 0) {
-            return res.status(409).json({ message: 'User with this email or username already exists.' });
-        }
         const sql = 'INSERT INTO users (firstName, lastName, username, email, password) VALUES (?, ?, ?, ?, ?)';
         await db.query(sql, [firstName, lastName, username, email, hashedPassword]);
         res.status(201).json({ message: 'User registered successfully!' });
     } catch (error) {
+        if (error.code === 'ER_DUP_ENTRY') {
+           return res.status(409).json({ message: 'Email or username already exists.' });
+        }
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
