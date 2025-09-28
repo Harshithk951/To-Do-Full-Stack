@@ -99,8 +99,8 @@ const Sidebar = memo(({ user, onProfileClick, onLogout }) => {
                         <ListItemText primary="Help" />
                     </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding>
-                    <ListItemButton onClick={handleLogout} sx={{ borderRadius: '8px' }}>
+               <ListItem disablePadding>
+                    <ListItemButton onClick={onLogout} sx={{ borderRadius: '8px' }}> 
                         <ListItemIcon sx={{ color: 'inherit' }}><LogoutIcon /></ListItemIcon>
                         <ListItemText primary="Logout" />
                     </ListItemButton>
@@ -132,7 +132,7 @@ function DashboardLayout() {
                 return;
             }
             try {
-                // FIX 1: Use the environment variable for profile fetch
+                
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/profile`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -152,7 +152,7 @@ function DashboardLayout() {
 
     const handleUpdateUser = useCallback(async (updatedData) => {
         try {
-            // FIX 2: Use the environment variable for profile update
+            
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/profile`, {
                 method: 'PUT',
                 headers: {
