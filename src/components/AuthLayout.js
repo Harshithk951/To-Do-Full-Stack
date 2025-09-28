@@ -1,7 +1,9 @@
-import React from 'react';
-import { Box } from '@mui/material';
 
-function AuthLayout({ children }) {
+
+import React from 'react';
+import { Box, Paper } from '@mui/material';
+
+const AuthLayout = ({ children }) => {
   return (
     <Box
       sx={{
@@ -9,13 +11,21 @@ function AuthLayout({ children }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-        p: 2,
+        backgroundColor: '#f0f4f8',
       }}
     >
-      {children}
+      <Paper
+        elevation={3}
+        sx={{
+          padding: 4,
+          maxWidth: '500px',
+          width: '100%',
+        }}
+      >
+        {children}
+      </Paper>
     </Box>
   );
-}
+};
 
 export default AuthLayout;

@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import {
@@ -19,8 +21,8 @@ import { toast } from 'react-toastify';
 const illustrationPath = '/login-illustration.png';
 
 const Login = () => {
-  const [email, setEmail] = useState('mharshithkumar951@gmail.com');
-  const [password, setPassword] = useState('demopassword');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -31,7 +33,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      
       const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

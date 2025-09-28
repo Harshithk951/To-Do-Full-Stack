@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
@@ -31,8 +32,9 @@ const AppContent = () => {
       <ToastContainer theme={themeMode} position="bottom-right" autoClose={3000} />
       <Router>
         <Routes>
-          <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
-          <Route path="/register" element={<AuthLayout><Register /></AuthLayout>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          
           <Route path="/forgot-password" element={<AuthLayout><ForgotPassword /></AuthLayout>} />
           <Route path="/reset-password/:token" element={<AuthLayout><ResetPassword /></AuthLayout>} />
           <Route

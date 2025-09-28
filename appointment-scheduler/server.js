@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -9,18 +10,15 @@ const { OAuth2Client } = require('google-auth-library');
 
 const app = express();
 
-
 const corsOptions = {
     origin: process.env.FRONTEND_URL || 'http://localhost:3000'
 };
 app.use(cors(corsOptions));
 app.use(express.json());
 
-
 const JWT_SECRET = process.env.JWT_SECRET; 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '104431383148-4ubgun7hqoicil5bppqrvdam7r0hhv37.apps.googleusercontent.com';
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
-
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -29,10 +27,10 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   ssl: {
-    rejectUnauthorized: true 
+    rejectUnauthorized: true,
+    ca: fs.readFileSync('./ca.pem').toString()
   }
 }).promise();
-
 
 const createDemoUser = async () => {
   try {
@@ -114,43 +112,34 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
 app.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
     if (!email) {
         return res.status(400).json({ message: 'Email is required.' });
     }
-
     try {
         const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
         if (rows.length === 0) {
             return res.status(200).json({ message: 'If an account with this email exists, a password reset link has been sent.' });
         }
-
         const user = rows[0];
         const token = crypto.randomBytes(32).toString('hex');
         const expires = new Date(Date.now() + 3600000); 
-
         await db.query('UPDATE users SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE id = ?', [token, expires, user.id]);
-
         const resetURL = `${process.env.FRONTEND_URL}/reset-password/${token}`;
-
         const info = await transporter.sendMail({
             from: '"Todo Dashboard App" <no-reply@tododashboard.com>',
             to: user.email,
             subject: 'Password Reset Request',
             text: `Please click the following link to reset your password:\n\n${resetURL}\n\nIf you did not request this, please ignore this email.`,
         });
-
         console.log("Password reset email sent. Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
         res.status(200).json({ message: 'If an account with this email exists, a password reset link has been sent.' });
     } catch (error) {
         console.error('Forgot Password Error:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 app.get('/api/user/profile', authenticateToken, async (req, res) => {
   try {
@@ -168,7 +157,6 @@ app.put('/api/user/profile', authenticateToken, async (req, res) => {
   const { name, email, role, location, avatar } = req.body;
   const [firstName, ...lastNameParts] = name.split(' ');
   const lastName = lastNameParts.join(' ');
-
   try {
     const sql = 'UPDATE users SET firstName = ?, lastName = ?, email = ?, role = ?, location = ?, avatar = ? WHERE id = ?';
     await db.query(sql, [firstName || '', lastName || '', email, role || '', location || '', avatar || '', req.user.id]);
