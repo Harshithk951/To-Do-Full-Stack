@@ -9,19 +9,19 @@ const { OAuth2Client } = require('google-auth-library');
 
 const app = express();
 
-// FIX: CORS configuration to allow access from your Vercel frontend
+
 const corsOptions = {
     origin: process.env.FRONTEND_URL || 'http://localhost:3000'
 };
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Use secure environment variables
+
 const JWT_SECRET = process.env.JWT_SECRET; 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '104431383148-4ubgun7hqoicil5bppqrvdam7r0hhv37.apps.googleusercontent.com';
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-// Use environment variables and SSL configuration for Aiven database
+
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
