@@ -19,8 +19,8 @@ import { toast } from 'react-toastify';
 const illustrationPath = '/login-illustration.png';
 
 const Login = () => {
-  const [email, setEmail] = useState('admin@demo.com'); // Demo credentials
-  const [password, setPassword] = useState('demopassword'); // Demo credentials
+  const [email, setEmail] = useState('admin@demo.com'); 
+  const [password, setPassword] = useState('demopassword'); 
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ const Login = () => {
   const [showDemoAlert, setShowDemoAlert] = useState(true);
   const navigate = useNavigate();
 
-  // Use environment variable for API URL or fallback to localhost for development
+  
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -61,7 +61,7 @@ const Login = () => {
       const data = await response.json();
       console.log('✅ Login successful:', data);
       
-      // Store authentication data
+
       localStorage.setItem('token', data.token);
       if (data.user) {
         localStorage.setItem('user', JSON.stringify(data.user));
@@ -69,8 +69,7 @@ const Login = () => {
       }
       
       toast.success(`Welcome back, ${data.user?.name || 'User'}!`);
-      
-      // Navigate to dashboard/home
+     
       navigate('/');
     } catch (err) {
       console.error('❌ Login error:', err);
@@ -115,7 +114,7 @@ const Login = () => {
     }
   };
 
-  // Determine environment for display
+
   const isProduction = !API_URL.includes('localhost');
   const environmentType = isProduction ? 'Production' : 'Development';
 
@@ -130,7 +129,7 @@ const Login = () => {
         p: 2,
       }}
     >
-      {/* Single unified Paper container */}
+      
       <Paper
         elevation={5}
         sx={{
@@ -140,11 +139,11 @@ const Login = () => {
           minHeight: '600px',
           borderRadius: '16px',
           overflow: 'hidden',
-          // Responsive: stack vertically on mobile
+         
           flexDirection: { xs: 'column', md: 'row' },
         }}
       >
-        {/* Login Form - Left Side */}
+       
         <Box
           sx={{
             flex: 1,
@@ -161,7 +160,7 @@ const Login = () => {
               Sign In
             </Typography>
             
-            {/* Environment Indicator */}
+           
             <Alert 
               severity={isProduction ? "success" : "info"} 
               sx={{ mb: 2, fontSize: '0.875rem' }}
@@ -169,7 +168,7 @@ const Login = () => {
               {environmentType} Environment - {isProduction ? 'Vercel + Render + Aiven' : 'Local Development'}
             </Alert>
 
-            {/* Demo Credentials Alert */}
+            
             {showDemoAlert && (
               <Alert 
                 severity="info" 
@@ -185,7 +184,6 @@ const Login = () => {
               </Alert>
             )}
 
-            {/* Error Alert */}
             {error && (
               <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError('')}>
                 {error}
@@ -290,9 +288,7 @@ const Login = () => {
               >
                 {isLoading ? 'SIGNING IN...' : 'LOGIN'}
               </Button>
-              
-              {/* Quick Actions */}
-              <Box sx={{ mt: 2, display: 'flex', gap: 1, justifyContent: 'center' }}>
+                  <Box sx={{ mt: 2, display: 'flex', gap: 1, justifyContent: 'center' }}>
                 <Button 
                   size="small" 
                   variant="outlined" 
@@ -333,7 +329,7 @@ const Login = () => {
           </Box>
         </Box>
 
-        {/* Illustration - Right Side */}
+        
         <Box
           sx={{
             flex: 1,
