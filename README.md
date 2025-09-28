@@ -22,7 +22,7 @@ The application is fully deployed and stable. You can test the live version here
 This is the frontend client within a complete full-stack architecture. It is decoupled from the backend, communicating via a RESTful API. This separation of concerns is a modern web development best practice.
 
 *   **This Frontend (Client)**: Built with React and deployed on **Vercel**.
-*   **Backend API**: **https://github.com/Harshithk951/todo-backend.git**
+*   **Backend API**: **[https://github.com/Harshithk951/todo-backend](https://github.com/Harshithk951/todo-backend)**
 
 `[React Frontend on Vercel] <--- HTTPS Requests ---> [Node/Express API on Render] <--- SSL Connection ---> [MySQL Database on Aiven]`
 
@@ -40,13 +40,13 @@ This is the frontend client within a complete full-stack architecture. It is dec
 
 ### 🛠️ Detailed Tech Stack
 
-| Category              | Technology / Library                                       | Purpose                                                      |
-| --------------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| Category              | Technology / Library                                       | Purpose                                                                                                          |
+| --------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | **Core Framework**    | **React**                                                  | Building the component-based user interface.                 |
 | **Routing**           | **React Router DOM**                                       | For client-side routing and enabling navigation between views. |
 | **State Management**  | **React Hooks (`useState`, `useEffect`)**                  | Managing component state and side effects (like API calls).  |
 | **API Communication** | **Fetch API**                                              | Making asynchronous HTTP requests to the backend API endpoints. |
-| **Styling**           | **[e.g., Custom CSS Modules / Material-UI / Tailwind CSS]**  | _(Describe your styling approach here)_                       |
+| **Styling**           | **Custom CSS**                                             | To create a clean, functional, and lightweight design from scratch, ensuring full control over the application's appearance. |
 | **Linting**           | **ESLint**                                                 | Enforcing code quality and catching errors during development. |
 | **Deployment**        | **Vercel**                                                 | Continuous deployment platform for the frontend.             |
 | **Version Control**   | **Git & GitHub**                                           | Source code management and collaboration.                    |
@@ -76,4 +76,4 @@ To run this project on your local machine:
     ```sh
     npm start
     ```
-    *Note: For the application to be fully functional, the [backend server](https://github.com/Harshithk951/todo-backend.git) must also be running locally.*
+    *Note: For the application to be fully functional, the [backend server](https://github.com/Harshithk951/todo-backend) must also be running locally.*
