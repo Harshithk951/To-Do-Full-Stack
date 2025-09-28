@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import {
@@ -33,7 +31,8 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
+    
+      const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -129,7 +128,7 @@ const Login = () => {
                   }}
                 />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', my: 2 }}>
-                  <FormControlLabel control={<Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} sx={{ color: '#d32f2f', '&.Mui-checked': { color: '#d32f2f' } }} />} label="Remember Me" />
+                  <FormControlLabel control={<Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} sx={{ color: '#d32f2f', '&.M-checked': { color: '#d32f2f' } }} />} label="Remember Me" />
                   <Link component={RouterLink} to="/forgot-password" variant="body2" sx={{ fontWeight: 'bold', color: '#d32f2f', textDecoration: 'none' }}>
                     Forgot Password?
                   </Link>
