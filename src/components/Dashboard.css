@@ -3,9 +3,8 @@
 }
 
 .welcome-card {
-    background-color: #ffebee !important; /* Light red background */
-    color: #c62828 !important; /* Darker red text */
-    margin-bottom: 24px !important;
+    background-color: #ffebee !important;
+    color: #c62828 !important; 
     border-radius: 16px !important;
 }
 

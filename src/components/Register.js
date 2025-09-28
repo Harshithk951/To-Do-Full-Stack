@@ -26,8 +26,7 @@ import {
 } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 
-// FIX: The import statement for the image has been removed.
-// We will now reference the image directly from the `public` folder.
+
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -109,18 +108,18 @@ function Register() {
           boxShadow: '0 8px 32px 0 rgba(0,0,0,0.1)',
         }}
       >
-        {/* Left Column: Illustration */}
+       
         <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, p: 4, alignItems: 'center', justifyContent: 'center' }}>
           <Box
             component="img"
-            // FIX: The 'src' now points to the image in the 'public' folder.
+          
             src="/R.png" 
             alt="Registration Illustration"
             sx={{ maxWidth: '100%', height: 'auto', objectFit: 'contain' }}
           />
         </Box>
         
-        {/* Right Column: Form */}
+        
         <Box sx={{ flex: 1, p: { xs: 3, md: 5 } }}>
           <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', mb: 3 }}>
             Sign Up

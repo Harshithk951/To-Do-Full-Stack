@@ -9,7 +9,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: { xs: '90%', sm: 600 }, // Responsive width
+    width: { xs: '90%', sm: 600 }, 
     bgcolor: 'background.paper',
     borderRadius: '12px',
     boxShadow: 24,
@@ -17,7 +17,7 @@ const style = {
 };
 
 function ProfileModal({ open, onClose, user, onSave }) {
-    // FIX 1: Initialize state with the desired default values.
+  
     const [userData, setUserData] = useState({
         avatar: '',
         name: 'Harshith Kumar.M',
@@ -26,8 +26,7 @@ function ProfileModal({ open, onClose, user, onSave }) {
         location: 'Dehradun, India',
     });
 
-    // This effect ensures that when the real user data loads,
-    // it overrides the defaults, while keeping the defaults as a fallback.
+    
     useEffect(() => {
         if (user) {
             setUserData({
@@ -56,7 +55,7 @@ function ProfileModal({ open, onClose, user, onSave }) {
         <Modal open={open} onClose={onClose}>
             <Box sx={style}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                    {/* FIX 2: Bolder title to match screenshot */}
+                
                     <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
                         Edit Profile
                     </Typography>
@@ -64,8 +63,7 @@ function ProfileModal({ open, onClose, user, onSave }) {
                         <CloseIcon />
                     </IconButton>
                 </Box>
-                
-                {/* FIX 3: Updated Grid layout to match screenshot */}
+              
                 <Grid container spacing={2} alignItems="center">
                     <Grid item>
                         <Avatar src={userData.avatar} sx={{ width: 80, height: 80 }} />
@@ -122,7 +120,7 @@ function ProfileModal({ open, onClose, user, onSave }) {
                     </Grid>
                 </Grid>
                 
-                {/* FIX 4: Correct button styling and placement */}
+               
                 <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
                     <Button variant="text" onClick={onClose} sx={{ color: 'grey.600' }}>
                         Cancel

@@ -74,7 +74,7 @@
   flex-direction: column;
   color: #aaa;
   background-color: #fafafa;
-  position: relative; /* For image preview */
+  position: relative; 
 }
 
 .upload-placeholder {

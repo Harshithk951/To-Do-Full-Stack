@@ -33,7 +33,7 @@ function ForgotPassword() {
   };
 
   return (
-    // This Box is provided by AuthLayout, but we can style within it
+    
     <Paper
       elevation={5}
       sx={{
