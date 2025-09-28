@@ -59,8 +59,8 @@ To run this project on your local machine:
 
 1.  **Clone the Repository:**
     ```sh
-    git clone [Your Frontend Repository URL Here]
-    cd [your-frontend-repo-name]
+    git clone https://github.com/Harshithk951/To-Do-Full-Stack.git
+    cd To-Do-Full-Stack
     ```
 2.  **Install Dependencies:**
     ```sh
@@ -76,4 +76,4 @@ To run this project on your local machine:
     ```sh
     npm start
     ```
-    *Note: For the application to be fully functional, the [backend server]([Link to Your Backend GitHub Repository Again]) must also be running locally.*
+    *Note: For the application to be fully functional, the [backend server](https://github.com/Harshithk951/todo-backend.git) must also be running locally.*
