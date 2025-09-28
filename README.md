@@ -22,7 +22,7 @@ The application is fully deployed and stable. You can test the live version here
 This is the frontend client within a complete full-stack architecture. It is decoupled from the backend, communicating via a RESTful API. This separation of concerns is a modern web development best practice.
 
 *   **This Frontend (Client)**: Built with React and deployed on **Vercel**.
-*   **Backend API**: **[➡️ Link to Your Backend GitHub Repository Here]**
+*   **Backend API**: **https://github.com/Harshithk951/todo-backend.git**
 
 `[React Frontend on Vercel] <--- HTTPS Requests ---> [Node/Express API on Render] <--- SSL Connection ---> [MySQL Database on Aiven]`
 
