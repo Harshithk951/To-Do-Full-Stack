@@ -28,7 +28,6 @@ const Login = () => {
   const [showDemoAlert, setShowDemoAlert] = useState(true);
   const navigate = useNavigate();
 
-  
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -61,7 +60,6 @@ const Login = () => {
       const data = await response.json();
       console.log('✅ Login successful:', data);
       
-
       localStorage.setItem('token', data.token);
       if (data.user) {
         localStorage.setItem('user', JSON.stringify(data.user));
@@ -69,7 +67,7 @@ const Login = () => {
       }
       
       toast.success(`Welcome back, ${data.user?.name || 'User'}!`);
-     
+      
       navigate('/');
     } catch (err) {
       console.error('❌ Login error:', err);
@@ -114,7 +112,6 @@ const Login = () => {
     }
   };
 
-
   const isProduction = !API_URL.includes('localhost');
   const environmentType = isProduction ? 'Production' : 'Development';
 
@@ -129,7 +126,6 @@ const Login = () => {
         p: 2,
       }}
     >
-      
       <Paper
         elevation={5}
         sx={{
@@ -139,11 +135,9 @@ const Login = () => {
           minHeight: '600px',
           borderRadius: '16px',
           overflow: 'hidden',
-         
           flexDirection: { xs: 'column', md: 'row' },
         }}
       >
-       
         <Box
           sx={{
             flex: 1,
@@ -160,14 +154,12 @@ const Login = () => {
               Sign In
             </Typography>
             
-           
             <Alert 
               severity={isProduction ? "success" : "info"} 
               sx={{ mb: 2, fontSize: '0.875rem' }}
             >
               {environmentType} Environment - {isProduction ? 'Vercel + Render + Aiven' : 'Local Development'}
             </Alert>
-
             
             {showDemoAlert && (
               <Alert 
@@ -308,7 +300,6 @@ const Login = () => {
                   Server Status
                 </Button>
               </Box>
-
               <Typography sx={{ color: 'text.secondary', textAlign: 'center', mt: 3 }}>
                 {"Don't have an account?"}{' '}
                 <Link 
@@ -328,8 +319,6 @@ const Login = () => {
             </Box>
           </Box>
         </Box>
-
-        
         <Box
           sx={{
             flex: 1,
